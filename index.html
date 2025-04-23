@@ -9,9 +9,8 @@
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
-     <link rel="stylesheet" href="styles.css">
- ```
 <body>
     <header>
         <h1>Global Waqf Initiative</h1>
@@ -21,7 +20,7 @@
                 <li><a href="#projects">Projects</a></li>
                 <li><a href="#donate">Donate</a></li>
                 <li><a href="#about">About Us</a></li>
-               ><a href="#impact">Impact</a></li>
+                <li><a href="#impact">Impact</a></li>
                 <li><a href="#get-involved">Get Involved</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
@@ -35,6 +34,29 @@
         <section id="projects">
             <h2>Projects</h2>
             <div id="map" style="height: 500px;"></div>
+            <div class="project-list">
+                <div class="project">
+                    <h3>School Construction in Kenya</h3>
+                    <p>Help build a new school to provide quality education for children in rural Kenya.</p>
+                </div>
+                <div class="project">
+                    <h3>Hospital Renovation in Bangladesh</h3>
+                    <p>Support the renovation of a hospital to improve healthcare services for the local community.</p>
+                </div>
+                <div class="project">
+                    <h3>Mosque Restoration in Turkey</h3>
+                    <p>Contribute to the restoration of a historic mosque to preserve cultural heritage.</p>
+                </div>
+                <div class="project">
+                    <h3>Water Well Installation in Nigeria</h3>
+                    <p>Fund the installation of water wells to provide clean drinking water for villages.</p>
+                </div>
+                <div class="project">
+                    <h3>Solar Energy Station in India</h3>
+                    <p>Invest in a solar energy station to provide sustainable power to remote areas.</p>
+                </div>
+            </div>
+            <canvas id="donationChart" width="400" height="200"></canvas>
         </section>
         <section id="donate">
             <h2>Donate</h2>
@@ -55,6 +77,18 @@
         <section id="get-involved">
             <h2>Get Involved</h2>
             <p>Find out how you can volunteer and participate.</p>
+        </section>
+        <section id="testimonials">
+            <h2>Testimonials</h2>
+            <div class="testimonial">
+                <p>"Supporting the Global Waqf Initiative has been a rewarding experience. Knowing my donations are making a real difference is incredibly fulfilling." - Sarah, Donor</p>
+            </div>
+            <div class="testimonial">
+                <p>"I am proud to contribute to projects that provide essential services to communities in need. The transparency and impact reports are impressive." - Ahmed, Donor</p>
+            </div>
+            <div class="testimonial">
+                <p>"The Global Waqf Initiative's commitment to sustainable development is inspiring. I feel confident that my donations are used effectively." - Fatima, Donor</p>
+            </div>
         </section>
         <section id="contact">
             <h2>Contact</h2>
@@ -80,13 +114,16 @@
         }).addTo(map);
 
         var projects = [
-            {lat: 40.7128, lng: -74.0060, name: 'Project in New York'},
-            {lat: 51.5074, lng: -0.1278, name: 'Project in London'}
+            {lat: 40.7128, lng: -74.0060, name: 'School Construction in Kenya'},
+            {lat: 51.5074, lng: -0.1278, name: 'Hospital Renovation in Bangladesh'},
+            {lat: 41.0082, lng: 28.9784, name: 'Mosque Restoration in Turkey'},
+            {lat: 9.0820, lng: 8.6753, name: 'Water Well Installation in Nigeria'},
+            {lat: 20.5937, lng: 78.9629, name: 'Solar Energy Station in India'}
         ];
 
         projects.forEach(function(project) {
             L.marker([project.lat, project.lng]).addTo(map)
-               .name);
+                .bindPopup(project.name);
         });
 
         // Donation Impact Calculator
@@ -124,6 +161,24 @@
             const predictions = model.predict(tf.tensor(userData));
             return predictions.dataSync();
         }
-    </script>
-</body>
-</html>
+
+        // Donation Chart
+        var ctx = document.getElementById('donationChart').getContext('2d');
+        var donationChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['School Construction in Kenya', 'Hospital Renovation in Bangladesh', 'Mosque Restoration in Turkey', 'Water Well Installation in Nigeria', 'Solar Energy Station in India'],
+                datasets: [{
+                    label: 'Donations (USD)',
+                    data: [5000, 3000, 7000, 2000, 4000],
+                    backgroundColor: [
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 99, 132, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(54, 162, 235, 1)',
+                       
