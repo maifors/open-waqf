@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Waqf Initiative</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+</head>
+<body>
+    <header>
+        <h1>Global Waqf Initiative</h1>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#donate">Donate</a></li>
+                <li><a href="#about">About Us</a></li>
+               ><a href="#impact">Impact</a></li>
+                <li><a href="#get-involved">Get Involved</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section id="home">
+            <h2>Welcome to the Global Waqf Initiative</h2>
+            <p>Join us in supporting impactful waqf projects around the world.</p>
+        </section>
+        <section id="projects">
+            <h2>Projects</h2>
+            <div id="map" style="height: 500px;"></div>
+        </section>
+        <section id="donate">
+            <h2>Donate</h2>
+            <label for="donationAmount">Donation Amount:</label>
+            <input type="number" id="donationAmount" name="donationAmount">
+            <button onclick="calculateImpact()">Calculate Impact</button>
+            <p id="impactResult"></p>
+            <button onclick="donate()">Donate</button>
+        </section>
+        <section id="about">
+            <h2>About Us</h2>
+            <p>Learn more about our mission and vision.</p>
+        </section>
+        <section id="impact">
+            <h2>Impact</h2>
+            <p>Discover the impact of our projects.</p>
+        </section>
+        <section id="get-involved">
+            <h2>Get Involved</h2>
+            <p>Find out how you can volunteer and participate.</p>
+        </section>
+        <section id="contact">
+            <h2>Contact</h2>
+            <form>
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email">
+                <label for="message">Message:</label>
+                <textarea id="message" name="message"></textarea>
+                <button type="submit">Send</button>
+            </form>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2025 Global Waqf Initiative</p>
+    </footer>
+    <script>
+        // Interactive Map
+        var map = L.map('map').setView([0, 0], 2);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; OpenStreetMap contributors'
+        }).addTo(map);
+
+        var projects = [
+            {lat: 40.7128, lng: -74.0060, name: 'Project in New York'},
+            {lat: 51.5074, lng: -0.1278, name: 'Project in London'}
+        ];
+
+        projects.forEach(function(project) {
+            L.marker([project.lat, project.lng]).addTo(map)
+               .name);
+        });
+
+        // Donation Impact Calculator
+        function calculateImpact() {
+            const donationAmount = document.getElementById('donationAmount').value;
+            const impact = donationAmount * 10; // Example calculation
+            document.getElementById('impactResult').innerText = `Your donation can impact ${impact} lives!`;
+        }
+
+        // Blockchain Integration
+        const web3 = new Web3(new Web3.providers.HttpProvider('https://mainnet.infura.io/v3/YOUR_INFURA_PROJECT_ID'));
+
+        const contractABI = [/* ABI Array */];
+        const contractAddress = 'YOUR_CONTRACT_ADDRESS';
+        const contract = new web3.eth.Contract(contractABI, contractAddress);
+
+        async function donate() {
+            const donationAmount = document.getElementById('donationAmount').value;
+            const accounts = await web3.eth.getAccounts();
+            await contract.methods.donate().send({
+                from: accounts[0],
+                value: web3.utils.toWei(donationAmount, 'ether')
+            });
+        }
+
+        // AI-Powered Recommendations (Placeholder)
+        async function recommendProjects(userData) {
+            const model = tf.sequential();
+            model.add(tf.layers.dense({units: 128, activation: 'relu', inputShape: [10]}));
+            model.add(tf.layers.dense({units: 64, activation: 'relu'}));
+            model.add(tf.layers.dense({units: 1, activation: 'sigmoid'}));
+
+            model.compile({optimizer: 'adam', loss: 'binaryCrossentropy', metrics: ['accuracy']});
+
+            const predictions = model.predict(tf.tensor(userData));
+            return predictions.dataSync();
+        }
+    </script>
+</body>
+</html>
