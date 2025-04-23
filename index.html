@@ -13,25 +13,27 @@
 </head>
 <body>
     <header>
-        <h1>Global Waqf Initiative</h1>
-        <nav>
-            <ul>
-                <li><a href="#home">Home</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#donate">Donate</a></li>
-                <li><a href="#about">About Us</a></li>
-                <li><a href="#impact">Impact</a></li>
-                <li><a href="#get-involved">Get Involved</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </nav>
+        <div class="container">
+            <h1>Global Waqf Initiative</h1>
+            <nav>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#donate">Donate</a></li>
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#impact">Impact</a></li>
+                    <li><a href="#get-involved">Get Involved</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
     </header>
     <main>
-        <section id="home">
+        <section id="home" class="container">
             <h2>Welcome to the Global Waqf Initiative</h2>
             <p>Join us in supporting impactful waqf projects around the world.</p>
         </section>
-        <section id="projects">
+        <section id="projects" class="container">
             <h2>Projects</h2>
             <div id="map" style="height: 500px;"></div>
             <div class="project-list">
@@ -58,7 +60,7 @@
             </div>
             <canvas id="donationChart" width="400" height="200"></canvas>
         </section>
-        <section id="donate">
+        <section id="donate" class="container">
             <h2>Donate</h2>
             <label for="donationAmount">Donation Amount:</label>
             <input type="number" id="donationAmount" name="donationAmount">
@@ -66,19 +68,19 @@
             <p id="impactResult"></p>
             <button onclick="donate()">Donate</button>
         </section>
-        <section id="about">
+        <section id="about" class="container">
             <h2>About Us</h2>
             <p>Learn more about our mission and vision.</p>
         </section>
-        <section id="impact">
+        <section id="impact" class="container">
             <h2>Impact</h2>
             <p>Discover the impact of our projects.</p>
         </section>
-        <section id="get-involved">
+        <section id="get-involved" class="container">
             <h2>Get Involved</h2>
             <p>Find out how you can volunteer and participate.</p>
         </section>
-        <section id="testimonials">
+        <section id="testimonials" class="container">
             <h2>Testimonials</h2>
             <div class="testimonial">
                 <p>"Supporting the Global Waqf Initiative has been a rewarding experience. Knowing my donations are making a real difference is incredibly fulfilling." - Sarah, Donor</p>
@@ -90,92 +92,10 @@
                 <p>"The Global Waqf Initiative's commitment to sustainable development is inspiring. I feel confident that my donations are used effectively." - Fatima, Donor</p>
             </div>
         </section>
-        <section id="contact">
+        <section id="contact" class="container">
             <h2>Contact</h2>
             <form>
                 <label for="name">Name:</label>
                 <input type="text" id="name" name="name">
                 <label for="email">Email:</label>
                 <input type="email" id="email" name="email">
-                <label for="message">Message:</label>
-                <textarea id="message" name="message"></textarea>
-                <button type="submit">Send</button>
-            </form>
-        </section>
-    </main>
-    <footer>
-        <p>&copy; 2025 Global Waqf Initiative</p>
-    </footer>
-    <script>
-        // Interactive Map
-        var map = L.map('map').setView([0, 0], 2);
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; OpenStreetMap contributors'
-        }).addTo(map);
-
-        var projects = [
-            {lat: 40.7128, lng: -74.0060, name: 'School Construction in Kenya'},
-            {lat: 51.5074, lng: -0.1278, name: 'Hospital Renovation in Bangladesh'},
-            {lat: 41.0082, lng: 28.9784, name: 'Mosque Restoration in Turkey'},
-            {lat: 9.0820, lng: 8.6753, name: 'Water Well Installation in Nigeria'},
-            {lat: 20.5937, lng: 78.9629, name: 'Solar Energy Station in India'}
-        ];
-
-        projects.forEach(function(project) {
-            L.marker([project.lat, project.lng]).addTo(map)
-                .bindPopup(project.name);
-        // Donation Impact Calculator
-        function calculateImpact() {
-            const donationAmount = document.getElementById('donationAmount').value;
-            const impact = donationAmount * 10; // Example calculation
-            document.getElementById('impactResult').innerText = `Your donation can impact ${impact} lives!`;
-        }
-
-        // Blockchain Integration
-        const web3 = new Web3(new Web3.providers.HttpProvider('https://mainnet.infura.io/v3/YOUR_INFURA_PROJECT_ID'));
-
-        const contractABI = [/* ABI Array */];
-        const contractAddress = 'YOUR_CONTRACT_ADDRESS';
-        const contract = new web3.eth.Contract(contractABI, contractAddress);
-
-        async function donate() {
-            const donationAmount = document.getElementById('donationAmount').value;
-            const accounts = await web3.eth.getAccounts();
-            await contract.methods.donate().send({
-                from: accounts[0],
-                value: web3.utils.toWei(donationAmount, 'ether')
-            });
-        }
-
-        // AI-Powered Recommendations (Placeholder)
-        async function recommendProjects(userData) {
-            const model = tf.sequential();
-            model.add(tf.layers.dense({units: 128, activation: 'relu', inputShape: [10]}));
-            model.add(tf.layers.dense({units: 64, activation: 'relu'}));
-            model.add(tf.layers.dense({units: 1, activation: 'sigmoid'}));
-
-            model.compile({optimizer: 'adam', loss: 'binaryCrossentropy', metrics: ['accuracy']});
-
-            const predictions = model.predict(tf.tensor(userData));
-            return predictions.dataSync();
-        }
-
-        // Donation Chart
-        var ctx = document.getElementById('donationChart').getContext('2d');
-        var donationChart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: ['School Construction in Kenya', 'Hospital Renovation in Bangladesh', 'Mosque Restoration in Turkey', 'Water Well Installation in Nigeria', 'Solar Energy Station in India'],
-                datasets: [{
-                    label: 'Donations (USD)',
-                    data: [5000, 3000, 7000, 2000, 4000],
-                    backgroundColor: [
-                        'rgba(75, 192, 192, 0.2)',
-                        'rgba(54, 162, 235, 0.2)',
-                        'rgba(255, 206, 86, 0.2)',
-                        'rgba(153, 102, 255, 0.2)',
-                        'rgba(255, 99, 132, 0.2)'
-                    ],
-                    'rgba(75, 192, 192, 1)',
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(255, 206
