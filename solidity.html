@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Simple Solidity Contract Guide for Average Joe</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+      line-height: 1.6;
+      background: #f9f9f9;
+      color: #333;
+    }
+    h1, h2 {
+      color: #2c3e50;
+    }
+    pre {
+      background: #272822;
+      color: #f8f8f2;
+      padding: 1rem;
+      border-radius: 5px;
+      overflow-x: auto;
+    }
+    a {
+      color: #2980b9;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    .button {
+      display: inline-block;
+      margin: 1rem 0;
+      padding: 0.6rem 1.2rem;
+      background: #2980b9;
+      color: white;
+      border-radius: 4px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .button:hover {
+      background: #1f6391;
+    }
+    footer {
+      margin-top: 3rem;
+      font-size: 0.9rem;
+      color: #777;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <h1>How Average Joe Can Write Simple Solidity Contracts</h1>
+
+  <p>
+    Solidity is the programming language used to write <strong>smart contracts</strong> on blockchains like Ethereum.
+    If you’re not a programmer, don’t worry! This guide will walk you through how you can try writing and deploying a simple contract using an easy online tool called <strong>Remix IDE</strong>.
+  </p>
+
+  <h2>Step 1: Open Remix IDE</h2>
+  <p>
+    Remix is a free, browser-based Solidity editor and compiler. You don’t need to install anything.
+  </p>
+  <a href="https://remix.ethereum.org" target="_blank" rel="noopener" class="button">Open Remix IDE</a>
+
+  <h2>Step 2: Write a Simple IOU Contract</h2>
+  <p>
+    Copy and paste the following Solidity code into Remix’s editor panel (usually on the left side):
+  </p>
+  <pre>
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+contract SimpleIOU {
+    address public lender;
+    address public borrower;
+    uint public amount;
+
+    constructor(address _borrower, uint _amount) {
+        lender = msg.sender;       // person who creates the contract is the lender
+        borrower = _borrower;
+        amount = _amount;
+    }
+
+    function markAsPaid() public {
+        require(msg.sender == borrower, "Only borrower can mark as paid");
+        amount = 0;
+    }
+}
+  </pre>
+
+  <h2>Step 3: Compile the Contract</h2>
+  <p>
+    In Remix, click the <strong>Solidity Compiler</strong> tab (the one with the "sol" icon), then click <strong>Compile SimpleIOU.sol</strong>.
+    If there are no errors, you’re ready to deploy!
+  </p>
+
+  <h2>Step 4: Deploy the Contract</h2>
+  <p>
+    Switch to the <strong>Deploy & Run Transactions</strong> tab (the Ethereum icon).
+    Make sure the environment is set to <strong>JavaScript VM</strong> (this runs the contract in your browser for testing).
+  </p>
+  <p>
+    In the deployment section, enter:
+  </p>
+  <ul>
+    <li><code>_borrower</code>: Enter an Ethereum address (you can pick one from the dropdown accounts Remix provides)</li>
+    <li><code>_amount</code>: Enter the amount owed (e.g., 100)</li>
+  </ul>
+  <p>
+    Then click <strong>Deploy</strong>. Your contract is now live in the browser!
+  </p>
+
+  <h2>Step 5: Interact with Your Contract</h2>
+  <p>
+    After deployment, Remix will show your contract instance under <strong>Deployed Contracts</strong>.
+  </p>
+  <ul>
+    <li>Click <code>lender</code> or <code>borrower</code> to see the addresses.</li>
+    <li>Click <code>amount</code> to see how much is owed.</li>
+    <li>If you want to mark the IOU as paid, select the borrower account in Remix’s account dropdown, then click <code>markAsPaid</code>. This sets the amount to zero.</li>
+  </ul>
+
+  <h2>Why This Matters</h2>
+  <p>
+    This simple contract shows how you can create a digital agreement that records a debt between two parties, without needing a middleman like a bank or lawyer. Once deployed on a real blockchain, it becomes a transparent and tamper-proof record.
+  </p>
+
+  <h2>Next Steps</h2>
+  <ul>
+    <li>Try modifying the code to add new features, like setting deadlines or penalties.</li>
+    <li>Learn about wallets like MetaMask to deploy contracts on real testnets or mainnet.</li>
+    <li>Explore other Solidity tutorials and Remix examples to build your skills.</li>
+  </ul>
+
+  <footer>
+    &copy; 2025 Simple Solidity Guide. Created to help everyone understand blockchain smart contracts.
+  </footer>
+</body>
+</html>
